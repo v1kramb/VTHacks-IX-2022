@@ -4,10 +4,11 @@ import numpy as np
 import pose_base as pm
 import pose_landmarks as pl
 from datetime import datetime
-
+import os
 import sys
 
-cap = cv2.VideoCapture(sys.argv[1])  # 0
+# cap = cv2.VideoCapture(sys.argv[1])  # 0
+cap = cv2.VideoCapture('short-pushup.mp4')
 
 # Determine video attributes
 fps = cap.get(cv2.CAP_PROP_FPS)
@@ -15,11 +16,14 @@ width  = cap.get(3)  # float `width`
 height = cap.get(4)  # float `height`
 
 # Set up output video writing
-fourcc = cv2.VideoWriter_fourcc(*'XVID')
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+
 # time_now = datetime.now()
 # formatted_time = time_now.strftime("%m.%d.%Y_%H.%M.%S")
 # out = cv2.VideoWriter(f"output/pushup_{formatted_time}.mp4", fourcc, int(fps), (int(width), int(height)))
-out = cv2.VideoWriter("output/pushup.mp4", fourcc, int(fps), (int(width), int(height)))
+
+path = os.path.join(os.path.dirname(__file__), "../output/")
+# out = cv2.VideoWriter(path + "pushup_2.mp4", fourcc, int(fps), (int(width), int(height)))
 
 detector = pm.PoseDetector()
 landmarks = pl.PoseLandmark()
@@ -28,6 +32,8 @@ direction = 0
 form = 0
 feedback = "Fix Form"
 
+print("Count:", count)
+curr_count = count
 
 while cap.isOpened():
     ret, img = cap.read()
@@ -42,9 +48,6 @@ while cap.isOpened():
     # print(lmList)
     if len(lmList) != 0:
         elbow = detector.findAngle(img, landmarks.LEFT_SHOULDER, landmarks.LEFT_ELBOW, landmarks.LEFT_WRIST)
-
-        right_elbow = detector.findAngle(img, landmarks.RIGHT_SHOULDER, landmarks.RIGHT_ELBOW, landmarks.RIGHT_WRIST)
-
         shoulder = detector.findAngle(img, 13, 11, 23)
         hip = detector.findAngle(img, 11, 23,25)
         
@@ -78,12 +81,10 @@ while cap.isOpened():
                 else:
                     feedback = "Fix Form"
                         # form = 0
-                
-                    
-    
-        # print(count)
-        
-        # TODO: draw feedback
+
+        if count > curr_count:
+            print("Count:", count)
+            curr_count = count        
 
         #Draw Bar
         # if form == 1:
@@ -104,13 +105,13 @@ while cap.isOpened():
         #             (0, 255, 0), 2)
 
         
-    # cv2.imshow('Pushup counter', img)
-    out.write(img)
-    # if cv2.waitKey(10) & 0xFF == ord('q'):
-    #     break
+    cv2.imshow('Pushup counter', img)
+    # out.write(img)
+    if cv2.waitKey(10) & 0xFF == ord('q'):
+        break
         
 cap.release()
-out.release()
+# out.release()
 cv2.destroyAllWindows()
 
 print("All done!")
