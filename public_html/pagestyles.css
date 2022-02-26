@@ -1,0 +1,74 @@
+@font-face {
+    font-family: Rubik;
+    src: url('Rubik-Black.ttf');
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.title {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.navbar-nav a {
+    font-size: 1.4em;
+} 
+
+.input {
+    margin-top: 3em;
+    text-align: center;
+}
+
+input {
+    font-family: sans-serif;
+}
+
+#video-input {
+    display: none;
+}
+
+button {
+    font-family: sans-serif;
+}
+
+#video-player {
+    width: 20em;
+}
+
+#video-preview {
+    padding: 0px;
+    border: 3px solid black;
+    border-radius: 7px;
+}
+
+.page-title {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.8em;
+}
+
+.page-subtitle {
+    text-align: center;
+    font-style: italic;
+    color: #aaa;
+    font-size: 1em;
+}
+
+.title-box {
+    margin-top: 2em;
+    background-color: #333;
+    border-radius: 6px;
+    display: block;
+}
+
+.box {
+    padding: 0.3em;
+    /* margin-left: 0.3em;
+    margin-right: 0.3em; */
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 500px;
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Form Focus</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="../pagestyles.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- Navigation section -->
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark header">
+            <div class="container-fluid">
+                <a href="../#" class="navbar-brand title"> Form Focus </a>
+                
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"> </span>
+                </button>
+                
+                <div class="collapse navbar-collapse pages" id="navbarCollapse">
+                    <div class="navbar-nav">
+                        <a href="#" class="nav-item nav-link"> About </a>
+                        <a href="../log/#" class="nav-item nav-link"> Log </a>
+
+                        <div class="nav-item dropdown">
+                            <a href="../exercises/#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Exercises</a>
+                            <div class="dropdown-menu">
+                                <a href="../exercises/#pushup" class="dropdown-item"> Pushup </a>
+                                <a href="../exercises/#situp" class="dropdown-item"> Situp </a>
+                                <a href="#" class="dropdown-item"> Squat </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="p-5 my-4 bg-dark rounded-3">
+                <p class="lead" style="color:white;" >The purpose of this website is to provide constructive feedback on certain exercises using state of the art computer vision software. The libraries used in this project were from MediaPipe, a Google owned website with ML solutions.</p>
+                <p><a href="https://google.github.io/mediapipe/" target="_blank" class="btn btn-success btn-lg">Visit MediaPipe</a></p>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Pose Functionality</h2>
+                    <p>The funciton of MediaPipe's pose software is to offer high-fidelity body pose tracking, predicting the locations of 33 pose landmarks.
+                        It accomplishes this by using BlazePose, a software that utilizes machine learning, to track the locations of key body parts and provide pose estimations. 
+                    </p>
+                    <p><a href="https://google.github.io/mediapipe/solutions/pose" target="_blank" class="btn btn-success">Learn More &raquo;</a></p>
+                </div>
+
+                <img src="Image2.gif">
+
+                <div class="col-md-4">
+                    <h2>Pose Classification</h2>
+                    <p>BlazePose is able to classify certain poses as exercises such as pushups and squats through the use of the k-nearest neighbors algorithm to train the model.</p>
+                    <p><a href="https://google.github.io/mediapipe/solutions/pose_classification.html" target="_blank" class="btn btn-success">Learn More &raquo;</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap JS Bundle with Popper -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </body>
+</html>
