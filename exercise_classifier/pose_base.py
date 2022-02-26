@@ -2,7 +2,7 @@ import cv2
 import mediapipe as mp
 import math
 
-class poseDetector() :
+class PoseDetector() :
     
     def __init__(self, mode=False, complexity=1, smooth_landmarks=True,
                  enable_segmentation=False, smooth_segmentation=True,
@@ -83,7 +83,7 @@ class poseDetector() :
         
 
 def main():
-    detector = poseDetector()
+    detector = PoseDetector()
     cap = cv2.VideoCapture(0)
     while cap.isOpened():
         ret, img = cap.read() #ret is just the return variable, not much in there that we will use. 

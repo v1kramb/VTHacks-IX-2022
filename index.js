@@ -23,7 +23,7 @@ io.on('connection', socket => {
             console.log("Wrote MP4 from client.")
             console.log("Proceeding with processing...")
             // file written, now process it
-            const pythonProcess = spawn('python',["exercise_classifier/PushUpDetection.py", './toprocess.mp4']);
+            const pythonProcess = spawn('python',["exercise_classifier/pushup_classifier.py", './toprocess.mp4']);
             pythonProcess.stdout.on('data', (data) => {
                 // this let's us know the python script has terminated!
                 console.log(data);

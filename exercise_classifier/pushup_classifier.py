@@ -1,8 +1,8 @@
 import cv2
 import mediapipe as mp
 import numpy as np
-import PoseModule as pm
-import PoseLandmark as pl
+import pose_base as pm
+import pose_landmarks as pl
 from datetime import datetime
 
 import sys
@@ -16,12 +16,12 @@ height = cap.get(4)  # float `height`
 
 # Set up output video writing
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-time_now = datetime.now()
-formatted_time = time_now.strftime("%m.%d.%Y_%H.%M.%S")
+# time_now = datetime.now()
+# formatted_time = time_now.strftime("%m.%d.%Y_%H.%M.%S")
 # out = cv2.VideoWriter(f"output/pushup_{formatted_time}.mp4", fourcc, int(fps), (int(width), int(height)))
 out = cv2.VideoWriter("output/pushup.mp4", fourcc, int(fps), (int(width), int(height)))
 
-detector = pm.poseDetector()
+detector = pm.PoseDetector()
 landmarks = pl.PoseLandmark()
 count = 0
 direction = 0
