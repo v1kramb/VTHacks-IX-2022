@@ -10,7 +10,6 @@ app.use(express.static(__dirname + '/public_html'))
 const fs = require("fs");
 
 const spawn = require("child_process").spawn;
-const pythonProcess = spawn('python',["path/to/script.py", arg1, arg2, ...]);
 
 io.on('connection', socket => {
     console.log(socket.id + " connected");
@@ -21,7 +20,25 @@ io.on('connection', socket => {
                 console.error(err);
                 return;
             }
-            // file written
+            console.log("Wrote MP4 from client.")
+            console.log("Proceeding with processing...")
+            // file written, now process it
+            const pythonProcess = spawn('python',["exercise_classifier/PushUpDetection.py", './toprocess.mp4']);
+            pythonProcess.stdout.on('data', (data) => {
+                // this let's us know the python script has terminated!
+                console.log(data);
+                console.log('Completed processing')
+                fs.readFile('./output/pushup.mp4', 'hex', (err, data) => {
+                    if (err) {
+                        console.log(err); 
+                        return;
+                    }
+                    // now send that data back to the client
+                    console.log("Reading from python output")
+                    console.log("Sending back to client");
+                    io.to(socket.id).emit('receive-video', data);
+                });
+            });
         });
     })
 });

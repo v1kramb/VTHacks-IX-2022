@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/v1kramb/VTHacks-IX-2022#readme",
   "dependencies": {
+    "child_process": "^1.0.2",
     "express": "^4.17.3",
     "socket.io": "^4.4.1"
   }

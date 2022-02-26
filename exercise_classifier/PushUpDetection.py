@@ -5,7 +5,9 @@ import PoseModule as pm
 import PoseLandmark as pl
 from datetime import datetime
 
-cap = cv2.VideoCapture('short-pushup.mp4')  # 0
+import sys
+
+cap = cv2.VideoCapture(sys.argv[1])  # 0
 
 # Determine video attributes
 fps = cap.get(cv2.CAP_PROP_FPS)
@@ -17,6 +19,7 @@ fourcc = cv2.VideoWriter_fourcc(*'XVID')
 time_now = datetime.now()
 formatted_time = time_now.strftime("%m.%d.%Y_%H.%M.%S")
 # out = cv2.VideoWriter(f"output/pushup_{formatted_time}.mp4", fourcc, int(fps), (int(width), int(height)))
+out = cv2.VideoWriter("output/pushup.mp4", fourcc, int(fps), (int(width), int(height)))
 
 detector = pm.poseDetector()
 landmarks = pl.PoseLandmark()
@@ -78,7 +81,7 @@ while cap.isOpened():
                 
                     
     
-        print(count)
+        # print(count)
         
         # TODO: draw feedback
 
@@ -101,11 +104,13 @@ while cap.isOpened():
         #             (0, 255, 0), 2)
 
         
-    cv2.imshow('Pushup counter', img)
-    # out.write(img)
-    if cv2.waitKey(10) & 0xFF == ord('q'):
-        break
+    # cv2.imshow('Pushup counter', img)
+    out.write(img)
+    # if cv2.waitKey(10) & 0xFF == ord('q'):
+    #     break
         
 cap.release()
-# out.release()
+out.release()
 cv2.destroyAllWindows()
+
+print("All done!")

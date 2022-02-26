@@ -33,8 +33,6 @@ function readURL(files) {
     }
 }
 
-
-
 function analyze() {
     if (submittedFile != null) {
         // send data to the server.
@@ -42,3 +40,23 @@ function analyze() {
         socket.emit("process-video", submittedFile);
     }
 }
+
+socket.on('receive-video', data => {
+    // data = new Buffer(data);
+
+    console.log(data);
+
+    var url = URL.createObjectURL(data);
+        
+    console.log(url);
+    
+    var reader = new FileReader();
+    reader.onload = function() {
+        videoPlayer.attr("src", url);
+        videoPlayer.attr("loop", true);
+        videoPlayer.get(0).play();
+    }
+
+    reader.readAsDataURL(data);
+    $("#submit").attr("disabled", true);
+})
