@@ -37,7 +37,7 @@ button {
     width: 20em;
 }
 
-#video-preview {
+#video-preview, #video-player {
     padding: 0px;
     border: 3px solid black;
     border-radius: 7px;

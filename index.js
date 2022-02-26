@@ -36,7 +36,7 @@ io.on('connection', socket => {
                     // now send that data back to the client
                     console.log("Reading from python output")
                     console.log("Sending back to client");
-                    io.to(socket.id).emit('receive-video', data);
+                    io.to(socket.id).emit('receive-video', Buffer.from(data, 'hex'));
                 });
             });
         });

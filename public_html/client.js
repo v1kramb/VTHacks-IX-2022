@@ -42,7 +42,7 @@ function analyze() {
 }
 
 socket.on('receive-video', data => {
-    // data = new Buffer(data);
+    // data = Buffer.from(data, 'hex');
 
     console.log(data);
 
