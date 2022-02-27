@@ -17,6 +17,7 @@ let submittedFile = null;
 function readURL(files) {
     if (files && files[0]) {
         var file = files[0];
+        console.log(file);
         var url = URL.createObjectURL(file);
         
         console.log(url);
@@ -41,22 +42,54 @@ function analyze() {
     }
 }
 
-socket.on('receive-video', data => {
-    // data = Buffer.from(data, 'hex');
+fetch('/video')
+    .then(data =>  {
+        data.blob().then((file) => {
+            file = new File([file], 'blah.mp4', {type: 'video/mp4'});
+            // console.log(f);
 
-    console.log(data);
-
-    var url = URL.createObjectURL(data);
+            console.log(file);
+            
+            var url = URL.createObjectURL(file);
         
-    console.log(url);
-    
-    var reader = new FileReader();
-    reader.onload = function() {
-        videoPlayer.attr("src", url);
-        videoPlayer.attr("loop", true);
-        videoPlayer.get(0).play();
-    }
+            console.log(url);
 
-    reader.readAsDataURL(data);
+            var reader = new FileReader();
+            reader.onload = function() {
+                videoPlayer.attr("src", url);
+                videoPlayer.attr("loop", true);
+                videoPlayer.get(0).play();
+            }
+            
+            console.log(url);
+            reader.readAsDataURL(file);
+        });
+    });
+
+socket.on('receive-video', data => {
+    fetch('/video')
+    .then(data =>  {
+        data.blob().then((file) => {
+            const f = new File([file], 'blah.mp4', {type: 'video/mp4'});
+
+            console.log(file);
+            
+            var url = URL.createObjectURL(file);
+        
+            console.log(url);
+            
+            var reader = new FileReader();
+            reader.onload = function() {
+                videoPlayer.attr("src", url);
+                videoPlayer.attr("loop", true);
+                videoPlayer.get(0).play();
+            }
+            
+            console.log(url);
+            videoPlayer.get(0).crossorigin = 'anonymous'
+            reader.readAsDataURL(file);
+        });
+    });
+
     $("#submit").attr("disabled", true);
 })
