@@ -38,9 +38,9 @@ class PoseDetector() :
         self.lmList = []
         if self.results.pose_landmarks:
             for id, lm in enumerate(self.results.pose_landmarks.landmark):
-                #finding height, width of the image printed
+                # finding height, width of the image printed
                 h, w, c = img.shape
-                #Determining the pixels of the landmarks
+                # Determining the pixels of the landmarks
                 cx, cy = int(lm.x * w), int(lm.y * h)
                 self.lmList.append([id, cx, cy])
                 if draw:
@@ -48,12 +48,12 @@ class PoseDetector() :
         return self.lmList
         
     def findAngle(self, img, p1, p2, p3, draw=True, color=(255,255,255)):   
-        #Get the landmarks
+        # get the landmarks
         x1, y1 = self.lmList[p1][1:]
         x2, y2 = self.lmList[p2][1:]
         x3, y3 = self.lmList[p3][1:]
         
-        #Calculate Angle
+        # calculate Angle
         angle = math.degrees(math.atan2(y3-y2, x3-x2) - 
                              math.atan2(y1-y2, x1-x2))
         if angle < 0:
@@ -86,7 +86,7 @@ def main():
     detector = PoseDetector()
     cap = cv2.VideoCapture(0)
     while cap.isOpened():
-        ret, img = cap.read() #ret is just the return variable, not much in there that we will use. 
+        ret, img = cap.read()
         if ret:    
             img = detector.findPose(img)
             cv2.imshow('Pose Detection', cv2.flip(img, 1))

@@ -13,12 +13,12 @@ def get_pos_sec():
 cap = cv2.VideoCapture(sys.argv[1])  # 0
 # cap = cv2.VideoCapture('short-pushup.mp4')
 
-# Determine video attributes
+# determine video attributes
 fps = cap.get(cv2.CAP_PROP_FPS)
 width  = cap.get(3)  # float `width`
 height = cap.get(4)  # float `height`
 
-# Set up output video writing
+# set up output video writing
 fourcc = cv2.VideoWriter_fourcc(*'H264')
 
 # time_now = datetime.now()
@@ -67,13 +67,13 @@ while cap.isOpened():
         shoulder = detector.findAngle(img, landmarks.LEFT_ELBOW, landmarks.LEFT_SHOULDER, landmarks.LEFT_HIP, color=shoulderColor)
         hip = detector.findAngle(img, landmarks.LEFT_SHOULDER, landmarks.LEFT_HIP, landmarks.LEFT_KNEE, color=hipColor)
 
-        # Make sure the form is correct
+        # make sure the form is correct
         if elbow > 160 and shoulder > 40 and hip > 160:
             form = 1
     
-        # Then we can start evaluating the pushup
+        # start evaluating the pushup
         if form == 1:
-            # Hip arched at any point is bad
+            # hip arched at any point is bad
             if hip < 160:
                 if not backArchStarted:
                     backArchStarted = True
@@ -89,7 +89,7 @@ while cap.isOpened():
 
                 backArchStart = None
 
-            # Pushing down
+            # pushing down
             if direction == 0:
                 if elbow < minElbow:  # keep lowering minElbow
                     minElbow = elbow + 10  # adjust for frame bug
@@ -121,7 +121,7 @@ while cap.isOpened():
         #     # print("Count:", count)
         #     curr_count = count        
 
-        # Pushup counter
+        # pushup counter
         cv2.rectangle(img, (0, 0), (150, 100), (255, 255, 255), cv2.FILLED)
         cv2.putText(img, str(count), (5, 75), cv2.QT_FONT_NORMAL, 2.5,
                     (0, 0, 0), 5)

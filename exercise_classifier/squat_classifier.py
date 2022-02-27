@@ -60,11 +60,11 @@ while cap.isOpened():
         hip = detector.findAngle(img, landmarks.LEFT_KNEE, landmarks.LEFT_HIP, landmarks.LEFT_SHOULDER, color=hipColor)
         knee = detector.findAngle(img, landmarks.LEFT_ANKLE, landmarks.LEFT_KNEE, landmarks.LEFT_HIP, color=kneeColor)
 
-        # Make sure the form is correct
+        # make sure the form is correct
         if hip > 160 and knee > 160:  # standing position
             form = 1
     
-        # Start evaluating
+        # start evaluating
         if form == 1:
             # TODO: add something to keep your back straight
 
@@ -93,7 +93,7 @@ while cap.isOpened():
                         print("Stand up straight at %.2f seconds" % get_pos_sec())
                         kneeColor = (0,0,255)
                         waitKeyVal = 50
-                    # print("WENT UP")
+
                     maxKnee = 0
                     direction = 0
 
@@ -101,7 +101,7 @@ while cap.isOpened():
         #     print("Count:", count)
         #     curr_count = count        
 
-        # Counter
+        # squat counter
         cv2.rectangle(img, (0, 0), (100, 100), (255, 255, 255), cv2.FILLED)
         cv2.putText(img, str(int(count)), (5, 75), cv2.QT_FONT_NORMAL, 2.5,
                     (0, 0, 0), 5)
