@@ -34,8 +34,8 @@ count = 0
 direction = 0
 form = 0
 
-print("Count:", count)
-curr_count = count
+# print("Count:", count)
+# curr_count = count
 
 maxElbow = 0
 minElbow = 180
@@ -117,9 +117,9 @@ while cap.isOpened():
                     maxElbow = 0
                     direction = 0
 
-        if count > curr_count:
-            print("Count:", count)
-            curr_count = count        
+        # if count > curr_count:
+        #     print("Count:", count)
+        #     curr_count = count        
 
         # Pushup counter
         cv2.rectangle(img, (0, 0), (150, 100), (255, 255, 255), cv2.FILLED)

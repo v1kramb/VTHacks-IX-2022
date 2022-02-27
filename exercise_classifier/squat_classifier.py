@@ -11,7 +11,7 @@ def get_pos_sec():
     return cap.get(cv2.CAP_PROP_POS_MSEC) / 1000
 
 # cap = cv2.VideoCapture(sys.argv[1])  # 0
-cap = cv2.VideoCapture('short-pushup.mp4')
+cap = cv2.VideoCapture('input-squat.mp4')
 
 # Determine video attributes
 fps = cap.get(cv2.CAP_PROP_FPS)
@@ -20,11 +20,6 @@ height = cap.get(4)  # float `height`
 
 # Set up output video writing
 fourcc = cv2.VideoWriter_fourcc(*'H264')
-
-# time_now = datetime.now()
-# formatted_time = time_now.strftime("%m.%d.%Y_%H.%M.%S")
-# out = cv2.VideoWriter(f"output/pushup_{formatted_time}.mp4", fourcc, int(fps), (int(width), int(height)))
-
 path = os.path.join(os.path.dirname(__file__), "../output/")
 out = cv2.VideoWriter(path + "squat.mp4", fourcc, int(fps), (int(width), int(height)))
 
@@ -37,11 +32,10 @@ form = 0
 print("Count:", count)
 curr_count = count
 
-maxElbow = 0
-minElbow = 180
+maxKnee = 0
+minKnee = 180
 
-elbowColor = (255,255,255)
-shoulderColor = (255,255,255)
+kneeColor = (255,255,255)
 hipColor = (255,255,255)
 
 backArchStarted = False
@@ -63,70 +57,56 @@ while cap.isOpened():
     lmList = detector.findPosition(img, False)
 
     if len(lmList) != 0:
-        elbow = detector.findAngle(img, landmarks.LEFT_SHOULDER, landmarks.LEFT_ELBOW, landmarks.LEFT_WRIST, color=elbowColor)
-        shoulder = detector.findAngle(img, landmarks.LEFT_ELBOW, landmarks.LEFT_SHOULDER, landmarks.LEFT_HIP, color=shoulderColor)
-        hip = detector.findAngle(img, landmarks.LEFT_SHOULDER, landmarks.LEFT_HIP, landmarks.LEFT_KNEE, color=hipColor)
+        hip = detector.findAngle(img, landmarks.LEFT_KNEE, landmarks.LEFT_HIP, landmarks.LEFT_SHOULDER, color=hipColor)
+        knee = detector.findAngle(img, landmarks.LEFT_ANKLE, landmarks.LEFT_KNEE, landmarks.LEFT_HIP, color=kneeColor)
 
         # Make sure the form is correct
-        if elbow > 160 and shoulder > 40 and hip > 160:
+        if hip > 160 and knee > 160:  # standing position
             form = 1
     
-        # Then we can start evaluating the pushup
+        # Start evaluating
         if form == 1:
-            # Hip arched at any point is bad
-            if hip < 160:
-                if not backArchStarted:
-                    backArchStarted = True
-                    hipColor = (0,0,255)
-                    waitKeyVal = 50
-                    print("Arching your back at %.2f seconds" % get_pos_sec())
-            
-            # getting the time frame where your back was arched
-            if hip >= 160 and backArchStarted:  
-                # backArchEnd = cap.get(cv2.CAP_PROP_POS_MSEC)
-                # if backArchEnd == 0.0:  # back arched till end of video
-                #     backArchEnd = cap.get(cv2.CAP_PROP_FRAME_COUNT) * 1000 / fps
+            # TODO: add something to keep your back straight
 
-                backArchStart = None
-
-            # Pushing down
+            # Go down
+            print(direction)
             if direction == 0:
-                if elbow < minElbow:  # keep lowering minElbow
-                    minElbow = elbow + 10  # adjust for frame bug
-                else:  # we've found minElbow, you are pushing back up
-                    if minElbow <= 90:  # good pushup (counted)
-                        count += 0.5
-                    else:
-                        print("Elbow should be <= 90 degrees at %.2f seconds" % get_pos_sec())
-                        elbowColor = (0,0,255)
-                        waitKeyVal = 50
-                    
-                    minElbow = 180
-                    direction = 1
-            else:  # direction == 1, pushing up
-                if elbow > maxElbow:
-                    maxElbow = elbow 
+                if knee < minKnee:  # keep lowering
+                    minKnee = knee + 7  # + 10  # adjust for frame bug
                 else:
-                    if maxElbow >= 160:
+                    if minKnee <= 90:  # good
                         count += 0.5
                     else:
-                        print("Extend arms more as you're pushing up at %.2f seconds" % get_pos_sec())
-                        elbowColor = (0,0,255)
+                        print("Squat lower at %.2f seconds" % get_pos_sec())
+                        kneeColor = (0,0,255)
                         waitKeyVal = 50
-                    
-                    maxElbow = 0
+
+                    minKnee = 180
+                    direction = 1
+            else:  # direction == 1, go up
+                if knee > maxKnee:
+                    maxKnee = knee
+                else:
+                    if maxKnee >= 160:
+                        count += 0.5
+                    else:
+                        print("Stand up straight at %.2f seconds" % get_pos_sec())
+                        kneeColor = (0,0,255)
+                        waitKeyVal = 50
+                    # print("WENT UP")
+                    maxKnee = 0
                     direction = 0
 
         if count > curr_count:
             print("Count:", count)
             curr_count = count        
 
-        # Pushup counter
-        cv2.rectangle(img, (0, 0), (150, 100), (255, 255, 255), cv2.FILLED)
-        cv2.putText(img, str(count), (5, 75), cv2.QT_FONT_NORMAL, 2.5,
+        # Counter
+        cv2.rectangle(img, (0, 0), (100, 100), (255, 255, 255), cv2.FILLED)
+        cv2.putText(img, str(int(count)), (5, 75), cv2.QT_FONT_NORMAL, 2.5,
                     (0, 0, 0), 5)
 
-    cv2.imshow('Pushup counter', img)
+    cv2.imshow('Squat counter', img)
 
     if waitKeyVal == 50:  # we want the angles to be highlighted for half a second
         for i in range(3):  # slow down VideoWriter
@@ -136,7 +116,7 @@ while cap.isOpened():
         if frameCount == delay:  # reset the video speed and the angle highlights
             waitKeyVal = 10
             hipColor = (255,255,255)
-            elbowColor = (255,255,255)
+            kneeColor = (255,255,255)
             frameCount = 0
     else:
         out.write(img)
