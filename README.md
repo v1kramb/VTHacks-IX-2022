@@ -5,7 +5,7 @@ And especially during the pandemic era, when exercise is [critical]( https://med
 We figured that an automated approach could work.
 
 ## What it does
-FormFocus combines a web app with computer vision software. The web app allows users to upload videos of themselves doing an exercise. The app will analyze the video and automatically track your skeletal frame, no sensors needed.<br><br>
+FormFocus combines a web app with AI/computer vision software. The web app allows users to upload videos of themselves doing an exercise. The app will analyze the video and automatically track your skeletal frame, no sensors needed.<br><br>
 The app produces an annotated version of your video which will provide feedback on where you should be improving your exercises. It will highlight the body parts hindering your exercise and will slow down the video when you make a mistake. Currently, we have created classifiers for pushups and squats.
 
 ## How we built it
@@ -19,11 +19,12 @@ The server now has the annotated video locally. Critiques from the Python script
   - Our slow development prompted us to pivot to a web app, which we realized could be a more scalable solution for users who want to log their process over time.
   - We also realized that users could simply access the web app from their phone.
 - Making an aesthetically pleasing UI. As a team, our frontend experience is quite limited, so a good portion of our time was spent researching user interface design fundamentals.
-- We ran into a frustrating bug which took 3 hours to resolve. One line of code encoded the video incorrectly.
+- We ran into a frustrating bug which took 3 hours to resolve. It was caused by one line of code.
 
 ## Accomplishments that we're proud of
 - Creating a clean pipeline; in particular, being able to integrate Node with the Python AI script.
 - Creating a working application of computer vision in a hackathon.
+- Adjusting to the rapid developing/prototyping of a hackathon, especially because this was hackathon #1 for two team members.
 
 ## What's next for FormFocus
 - Build classifiers for a wider range of exercises and subdivide them into the muscle groups they target (e.g. lats, biceps, shoulders, etc.).
