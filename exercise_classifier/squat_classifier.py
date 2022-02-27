@@ -30,7 +30,7 @@ direction = 0
 form = 0
 
 # print("Count:", count)
-curr_count = count
+# curr_count = count
 
 maxKnee = 0
 minKnee = 180
