@@ -47,7 +47,7 @@ class PoseDetector() :
                     cv2.circle(img, (cx, cy), 5, (255,0,0), cv2.FILLED)
         return self.lmList
         
-    def findAngle(self, img, p1, p2, p3, draw=True):   
+    def findAngle(self, img, p1, p2, p3, draw=True, color=(255,255,255)):   
         #Get the landmarks
         x1, y1 = self.lmList[p1][1:]
         x2, y2 = self.lmList[p2][1:]
@@ -66,8 +66,8 @@ class PoseDetector() :
         
         #Draw
         if draw:
-            cv2.line(img, (x1, y1), (x2, y2), (255,255,255), 3)
-            cv2.line(img, (x3, y3), (x2, y2), (255,255,255), 3)
+            cv2.line(img, (x1, y1), (x2, y2), color, 3)
+            cv2.line(img, (x3, y3), (x2, y2), color, 3)
 
             
             cv2.circle(img, (x1, y1), 5, (0,0,255), cv2.FILLED)
