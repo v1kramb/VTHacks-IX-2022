@@ -40,7 +40,7 @@ class PoseDetector() :
             for id, lm in enumerate(self.results.pose_landmarks.landmark):
                 # finding height, width of the image printed
                 h, w, c = img.shape
-                # Determining the pixels of the landmarks
+                # determining the pixels of the landmarks
                 cx, cy = int(lm.x * w), int(lm.y * h)
                 self.lmList.append([id, cx, cy])
                 if draw:
@@ -53,7 +53,7 @@ class PoseDetector() :
         x2, y2 = self.lmList[p2][1:]
         x3, y3 = self.lmList[p3][1:]
         
-        # calculate Angle
+        # calculate angle
         angle = math.degrees(math.atan2(y3-y2, x3-x2) - 
                              math.atan2(y1-y2, x1-x2))
         if angle < 0:
@@ -64,7 +64,7 @@ class PoseDetector() :
             angle = 360 - angle
         # print(angle)
         
-        #Draw
+        # draw
         if draw:
             cv2.line(img, (x1, y1), (x2, y2), color, 3)
             cv2.line(img, (x3, y3), (x2, y2), color, 3)
