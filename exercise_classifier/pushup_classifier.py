@@ -26,7 +26,7 @@ fourcc = cv2.VideoWriter_fourcc(*'H264')
 # out = cv2.VideoWriter(f"output/pushup_{formatted_time}.mp4", fourcc, int(fps), (int(width), int(height)))
 
 path = os.path.join(os.path.dirname(__file__), "../output/")
-out = cv2.VideoWriter(path + "pushup.mp4", fourcc, int(fps), (int(width), int(height)))
+out = cv2.VideoWriter("output/output.mp4", fourcc, int(fps), (int(width), int(height)))
 
 detector = pm.PoseDetector()
 landmarks = pl.PoseLandmark()
@@ -148,4 +148,4 @@ cap.release()
 out.release()
 cv2.destroyAllWindows()
 
-print("All done!")
+# print("All done!")
