@@ -18,7 +18,7 @@ const spawn = require("child_process").spawn;
 // });
 
 app.get('/video', (req, res) => {
-    const url = "pushup.mp4"
+    const url = "output/pushup.mp4"
     const rs = fs.createReadStream(url);    
     const { size } = fs.statSync(url);
 
@@ -43,9 +43,9 @@ io.on('connection', socket => {
             const pythonProcess = spawn('python',["exercise_classifier/pushup_classifier.py", './toprocess.mp4']);
             pythonProcess.stdout.on('data', (data) => {
                 // this let's us know the python script has terminated!
-                console.log(data);
+                const messages = data.toString().split("\n")
                 console.log('Completed processing')
-                io.to(socket.id).emit('receive-video', "Knowledge");
+                io.to(socket.id).emit('receive-video', messages);
                 // fs.readFile('./output/pushup.mp4', 'hex', (err, data) => {
                 //     if (err) {
                 //         console.log(err); 

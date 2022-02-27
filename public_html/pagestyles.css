@@ -72,3 +72,12 @@ button {
     margin-right: auto;
     max-width: 500px;
 }
+
+#loading-section {
+    text-align: center;
+    display: none;
+}
+
+#loading {
+    width: 8em;
+}

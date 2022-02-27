@@ -37,36 +37,16 @@ function readURL(files) {
 function analyze() {
     if (submittedFile != null) {
         // send data to the server.
-        console.log(submittedFile);
+        // console.log(submittedFile);
+        $("#loading-section").css("display", "block");
         socket.emit("process-video", submittedFile);
     }
 }
 
-// fetch('/video')
-//     .then(data =>  {
-//         data.blob().then((file) => {
-//             file = new File([file], 'blah.mp4', {type: 'video/mp4'});
-//             // console.log(f);
-
-//             console.log(file);
-            
-//             var url = URL.createObjectURL(file);
-        
-//             console.log(url);
-
-//             var reader = new FileReader();
-//             reader.onload = function() {
-//                 videoPlayer.attr("src", url);
-//                 videoPlayer.attr("loop", true);
-//                 videoPlayer.get(0).play();
-//             }
-            
-//             console.log(url);
-//             reader.readAsDataURL(file);
-//         });
-//     });
-
 socket.on('receive-video', data => {
+    // now fetch the video from the stored database on the server
+    $("#loading-section").css("display", "none");
+    $("#comments").text(data)
     fetch('/video')
     .then(data =>  {
         data.blob().then((file) => {

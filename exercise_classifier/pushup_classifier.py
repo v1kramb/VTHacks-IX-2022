@@ -10,8 +10,8 @@ import sys
 def get_pos_sec():
     return cap.get(cv2.CAP_PROP_POS_MSEC) / 1000
 
-# cap = cv2.VideoCapture(sys.argv[1])  # 0
-cap = cv2.VideoCapture('short-pushup.mp4')
+cap = cv2.VideoCapture(sys.argv[1])  # 0
+# cap = cv2.VideoCapture('short-pushup.mp4')
 
 # Determine video attributes
 fps = cap.get(cv2.CAP_PROP_FPS)
@@ -34,8 +34,8 @@ count = 0
 direction = 0
 form = 0
 
-print("Count:", count)
-curr_count = count
+# print("Count:", count)
+# curr_count = count
 
 maxElbow = 0
 minElbow = 180
@@ -117,16 +117,16 @@ while cap.isOpened():
                     maxElbow = 0
                     direction = 0
 
-        if count > curr_count:
-            print("Count:", count)
-            curr_count = count        
+        # if count > curr_count:
+        #     # print("Count:", count)
+        #     curr_count = count        
 
         # Pushup counter
         cv2.rectangle(img, (0, 0), (150, 100), (255, 255, 255), cv2.FILLED)
         cv2.putText(img, str(count), (5, 75), cv2.QT_FONT_NORMAL, 2.5,
                     (0, 0, 0), 5)
 
-    cv2.imshow('Pushup counter', img)
+    # cv2.imshow('Pushup counter', img)
 
     if waitKeyVal == 50:  # we want the angles to be highlighted for half a second
         for i in range(3):  # slow down VideoWriter
@@ -141,8 +141,8 @@ while cap.isOpened():
     else:
         out.write(img)
 
-    if cv2.waitKey(waitKeyVal) & 0xFF == ord('q'):
-        break
+    # if cv2.waitKey(waitKeyVal) & 0xFF == ord('q'):
+    #     break
         
 cap.release()
 out.release()
