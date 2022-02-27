@@ -26,7 +26,7 @@ fourcc = cv2.VideoWriter_fourcc(*'H264')
 # out = cv2.VideoWriter(f"output/pushup_{formatted_time}.mp4", fourcc, int(fps), (int(width), int(height)))
 
 path = os.path.join(os.path.dirname(__file__), "../output/")
-out = cv2.VideoWriter(path + "pushup_lol.mp4", fourcc, int(fps), (int(width), int(height)))
+out = cv2.VideoWriter(path + "squat.mp4", fourcc, int(fps), (int(width), int(height)))
 
 detector = pm.PoseDetector()
 landmarks = pl.PoseLandmark()

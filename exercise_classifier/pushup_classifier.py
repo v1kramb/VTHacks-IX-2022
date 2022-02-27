@@ -19,7 +19,7 @@ width  = cap.get(3)  # float `width`
 height = cap.get(4)  # float `height`
 
 # Set up output video writing
-fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+fourcc = cv2.VideoWriter_fourcc(*'H264')
 
 # time_now = datetime.now()
 # formatted_time = time_now.strftime("%m.%d.%Y_%H.%M.%S")
