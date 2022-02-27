@@ -42,7 +42,32 @@ function analyze() {
     }
 }
 
-fetch('/video')
+// fetch('/video')
+//     .then(data =>  {
+//         data.blob().then((file) => {
+//             file = new File([file], 'blah.mp4', {type: 'video/mp4'});
+//             // console.log(f);
+
+//             console.log(file);
+            
+//             var url = URL.createObjectURL(file);
+        
+//             console.log(url);
+
+//             var reader = new FileReader();
+//             reader.onload = function() {
+//                 videoPlayer.attr("src", url);
+//                 videoPlayer.attr("loop", true);
+//                 videoPlayer.get(0).play();
+//             }
+            
+//             console.log(url);
+//             reader.readAsDataURL(file);
+//         });
+//     });
+
+socket.on('receive-video', data => {
+    fetch('/video')
     .then(data =>  {
         data.blob().then((file) => {
             file = new File([file], 'blah.mp4', {type: 'video/mp4'});
@@ -62,31 +87,6 @@ fetch('/video')
             }
             
             console.log(url);
-            reader.readAsDataURL(file);
-        });
-    });
-
-socket.on('receive-video', data => {
-    fetch('/video')
-    .then(data =>  {
-        data.blob().then((file) => {
-            const f = new File([file], 'blah.mp4', {type: 'video/mp4'});
-
-            console.log(file);
-            
-            var url = URL.createObjectURL(file);
-        
-            console.log(url);
-            
-            var reader = new FileReader();
-            reader.onload = function() {
-                videoPlayer.attr("src", url);
-                videoPlayer.attr("loop", true);
-                videoPlayer.get(0).play();
-            }
-            
-            console.log(url);
-            videoPlayer.get(0).crossorigin = 'anonymous'
             reader.readAsDataURL(file);
         });
     });
