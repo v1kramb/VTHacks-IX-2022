@@ -47,9 +47,11 @@ function analyze() {
 socket.on('receive-video', data => {
     // now fetch the video from the stored database on the server
     $("#loading-section").css("display", "none");
+    console.log(data);
     if (data[data.length - 1] == "") {
         data = data.slice(0, -1);
     }
+    data = data.slice(0, -1); // remove 'all done'
     let display = "";
     if (data.length == 0) {
         display = "<span style='color: green; font-weight: bold; font-size: 1.4em'> Good form! </span><br>";

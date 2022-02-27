@@ -148,4 +148,4 @@ cap.release()
 out.release()
 cv2.destroyAllWindows()
 
-# print("All done!")
+print("All done!")

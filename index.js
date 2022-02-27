@@ -31,6 +31,7 @@ app.get('/video', (req, res) => {
 io.on('connection', socket => {
     console.log(socket.id + " connected");
     socket.on('process-video', data => {
+        console.log("what");
         let file = data.file;
         let exercise = data.process; 
         console.log(file);
@@ -43,6 +44,9 @@ io.on('connection', socket => {
             console.log("Proceeding with processing...")
             // file written, now process it
             const pythonProcess = spawn('python',["exercise_classifier/" + exercise + "_classifier.py", './toprocess.mp4']);
+            pythonProcess.on('error', (err) => {
+                console.log(err);
+            });
             pythonProcess.stdout.on('data', (data) => {
                 // this let's us know the python script has terminated!
                 const messages = data.toString().split("\n")
